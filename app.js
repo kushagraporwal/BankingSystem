@@ -74,26 +74,47 @@ app.get('/', async(req, res) =>{
     res.render('home');
 });
 app.get('/viewall', async(req, res) =>{
+    try{
     const allusers = await User.find({});
    //res.send(allusers);
     res.render('viewall', {allusers});
+    }
+    catch{
+        console.log('Catch an error: ', e);
+    }
 });
 app.get('/:userid/info', async(req, res) =>{
+    try{
     const user= await User.findById(req.params.userid);
     const allusers = await User.find( { "_id": { $ne: req.params.userid } } );
     res.render('info', {user, allusers});
+    }
+    catch{
+        console.log('Catch an error: ', e);
+    }
 });
 app.get('/transfer/:from', async(req, res) =>{
+    try{
     const allusers = await User.find( { "_id": { $ne: req.params.from } } );
     const oneuser = await User.findById(req.params.from);
     res.render('transfer', {allusers, oneuser});
+    }
+    catch{
+        console.log('Catch an error: ', e);
+    }
 });
 app.get('/transfer/:from/:to', async(req, res) =>{
+    try{
     const from = await User.findById(req.params.from);
     const to = await User.findById(req.params.to);
     res.render('fromto', {from, to});
+    }
+    catch{
+        console.log('Catch an error: ', e);
+    }
 });
 app.post('/transfer/:from/:to', async(req, res) =>{
+    try{
     const from = await User.findById(req.params.from);
     const to = await User.findById(req.params.to);
     const amount= req.body.amount;
@@ -111,7 +132,10 @@ app.post('/transfer/:from/:to', async(req, res) =>{
         req.flash('error', 'Amount is more than the current balance');
         res.redirect(`/transfer/${from._id}/${to._id}`);
     }
-    
+}
+catch{
+    console.log('Catch an error: ', e);
+}
 });
 app.listen(port, () =>{
     console.log(`Listening to port ${port}`)
