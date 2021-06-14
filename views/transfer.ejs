@@ -1,0 +1,7 @@
+<% layout('layouts/boilerplate') %>
+    <h1>Transfer to-</h1>
+    <% for(i=0;i<=allusers.length-1;i++){ %>
+        <a href="/transfer/<%= oneuser._id %>/<%=allusers[i]._id %>"><%= allusers[i].name %></a>
+        <% } %>
+        <br>
+<a href="/">Home</a>

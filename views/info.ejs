@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+<style>
+    body{
+        background-color: #242424;
+    }
+</style>
+<section class="text-light px-5 py-5 text-center">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9" style="text-align: center;">
+      <h1 class="pr">Profile-</h1>
+      <div class="pb">
+        <div id="pri"><p id="logo"></p></div>
+        <div class="cont5">
+      <p><span class="sp"><i class="bi bi-person"></i> Name-</span> <span id="firstName"><%= user.name %></span><span id="lastName"></span></p>
+      <p><span class="sp"><i class="bi bi-envelope"></i> Email-</span> <%= user.email %></p>
+      <p><span class="sp"><i class="bi bi-journal"></i> Account No.-</span> <%= user.accountNumber %></p>
+      <p><span class="sp"><i class="bi bi-cash"></i> Current Balance-</span> Rs.<%= user.currBal %></p>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-3" style="text-align: left;">
+        <div class="bx">
+        <h1 class="tm">Transfer money to-</h1>
+      <% for(let i=0;i<=allusers.length-1;i++){ %>
+        <% if(i%2==0){ %>
+      <a href="/transfer/<%= user._id %>/<%=allusers[i]._id %>" class="a2"><div class="list2"><%= allusers[i].name %></div></a>
+      <% } else{ %>
+        <a href="/transfer/<%= user._id %>/<%=allusers[i]._id %>" class="a2"><div class="list3"><%= allusers[i].name %></div></a>
+      <%} } %>
+    </div>
+    </div>
+  </div>
+</div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

@@ -1,0 +1,14 @@
+<% layout('layouts/boilerplate') %>
+<style>
+    body{
+        background-color: #242424;
+    }
+</style>
+<div class="container" style="text-align: center;">
+    <h1 class="su">Select A User</h1>
+    <% for(i=0;i<=allusers.length-1;i++){ %>
+        <a class="viewa" href="<%=allusers[i]._id %>/info"><div class="user">
+        <%= allusers[i].name %></div></a>
+        <% } %>
+        <br>
+</div>

@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+<style>
+    body{
+        background-color: #242424;
+        color: white;
+    }
+</style>
+<div  style="text-align: center;">
+<h1 class="tf">Transfer Money</h1>
+<div class="bx2">
+    <div class="circles">
+    <div id="profile"><p id="log"></p></div>
+    <div><span style='font-size:100px;'>&#8594;</span></div>
+    <div id="profile2"><p id="log2"></p></div>
+</div>
+<div class="bx4">
+    <div class="u1">
+    <p>From- <span id="fn" style="color: yellow;"><%= from.name %></span> <span id="ac1">(Acc. <%=from.accountNumber %>)</span></p>
+</div>
+    <div class="u2">
+        <p>To- <span id="sn" style="color: yellow;"><%= to.name %></span> <span id="ac2">(Acc. <%=to.accountNumber %>)</span></p>
+        </div>
+    <p style="font-size: 20px;">Current balance- Rs.<%= from.currBal %></p>
+    <form class="form" action="/transfer/<%= from._id %>/<%=to._id %>" method="POST">
+    
+        <div class="group">      
+          <input type="number" id="amount" name="amount" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Amount</label>
+        </div>
+        <button type="submit" class="btn btn-dark" style="background-color: limegreen; font-size: 20px;">Transfer</button>
+        </form>
+</div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
