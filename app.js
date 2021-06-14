@@ -79,7 +79,7 @@ app.get('/viewall', async(req, res) =>{
    //res.send(allusers);
     res.render('viewall', {allusers});
     }
-    catch{
+    catch(e){
         console.log('Catch an error: ', e);
     }
 });
@@ -89,7 +89,7 @@ app.get('/:userid/info', async(req, res) =>{
     const allusers = await User.find( { "_id": { $ne: req.params.userid } } );
     res.render('info', {user, allusers});
     }
-    catch{
+    catch(e){
         console.log('Catch an error: ', e);
     }
 });
@@ -99,7 +99,7 @@ app.get('/transfer/:from', async(req, res) =>{
     const oneuser = await User.findById(req.params.from);
     res.render('transfer', {allusers, oneuser});
     }
-    catch{
+    catch(e){
         console.log('Catch an error: ', e);
     }
 });
@@ -109,7 +109,7 @@ app.get('/transfer/:from/:to', async(req, res) =>{
     const to = await User.findById(req.params.to);
     res.render('fromto', {from, to});
     }
-    catch{
+    catch(e){
         console.log('Catch an error: ', e);
     }
 });
@@ -133,7 +133,7 @@ app.post('/transfer/:from/:to', async(req, res) =>{
         res.redirect(`/transfer/${from._id}/${to._id}`);
     }
 }
-catch{
+catch(e){
     console.log('Catch an error: ', e);
 }
 });
