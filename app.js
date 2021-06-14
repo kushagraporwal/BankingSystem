@@ -12,10 +12,10 @@ const User = require('./models/users');
 const Transfer = require('./models/transfers');
 const session = require('express-session');
 const flash = require('connect-flash');
-const mongodbstore = require('connect-mongodb-session')(session);
+const mongodbstore = require('connect-mongodb-session') (session);
 const port = process.env.PORT || 3000;
 
-const DB= process.env.DATABASE;
+const DB= process.env.DATABASE || 'mongodb://localhost:27017/banking_system';
 mongoose.connect(DB, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
