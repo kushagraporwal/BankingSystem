@@ -1,4 +1,8 @@
-const dotenv = require('dotenv');
+if(process.env.NODE_ENV !== "production")
+{
+    const dotenv = require('dotenv');
+    dotenv.config({path: './config.env' });
+}
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -8,10 +12,10 @@ const User = require('./models/users');
 const Transfer = require('./models/transfers');
 const session = require('express-session');
 const flash = require('connect-flash');
+const mongodbstore = require('connect-mongodb-session')(session);
 const port = process.env.PORT || 3000;
 
-dotenv.config({path: './config.env' });
-const DB= process.env.DATABASE
+const DB= process.env.DATABASE;
 mongoose.connect(DB, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
@@ -34,16 +38,6 @@ mongoose.connect(DB, {
 //     console.log("Database connected");
 // });
 
-const newuser = async() =>{
-    const user = new User({
-        name: 'Sachin Dixit',
-        email: 'sdixit797@gmail.com',
-        accountNumber:6363636363636,
-        currBal: 1000
-    });
-    await user.save();
-}
-//newuser();
 app.engine('ejs', ejsmate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -51,8 +45,20 @@ app.use(express.static("public"));
 
 app.use(express.urlencoded({extended: true}));
 
+const secret = process.env.SECRET || 'thisismysecret';
+const store = new mongodbstore({
+    url: DB,
+    secret,
+    touchAfter: 24 * 60 * 60
+});
+store.on('error', function (e){
+    console.log('SESSION STORE ERROR', e);
+})
+
 const sessionsonfig = {
-    secret: 'thesecret',
+    store,
+    name: 'session',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie:{
