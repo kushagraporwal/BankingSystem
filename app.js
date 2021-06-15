@@ -12,10 +12,11 @@ const User = require('./models/users');
 const Transfer = require('./models/transfers');
 const session = require('express-session');
 const flash = require('connect-flash');
-const mongodbstore = require('connect-mongodb-session') (session);
+//const mongodbstore = require('connect-mongodb-session') (session);
 const port = process.env.PORT || 3000;
 
-const DB= process.env.DATABASE;
+const DB= process.env.DATABASE || 'mongodb://localhost:27017/banking_system';
+console.log(DB);
 mongoose.connect(DB, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
@@ -46,17 +47,16 @@ app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
 const secret = process.env.SECRET || 'thisismysecret';
-const store = new mongodbstore({
-    url: DB,
-    secret,
-    touchAfter: 24 * 60 * 60
-});
-store.on('error', function (e){
-    console.log('SESSION STORE ERROR', e);
-})
+// const store = new mongodbstore({
+//     url: DB,
+//     secret,
+//     touchAfter: 24 * 60 * 60
+// });
+// store.on('error', function (e){
+//     console.log('SESSION STORE ERROR', e);
+// })
 
 const sessionsonfig = {
-    store,
     name: 'session',
     secret,
     resave: false,
