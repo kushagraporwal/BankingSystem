@@ -15,7 +15,7 @@ const flash = require('connect-flash');
 const mongodbstore = require('connect-mongodb-session') (session);
 const port = process.env.PORT || 3000;
 
-const DB= process.env.DATABASE || 'mongodb://localhost:27017/banking_system';
+const DB= 'mongodb://localhost:27017/banking_system';
 mongoose.connect(DB, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
