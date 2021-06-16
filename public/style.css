@@ -219,6 +219,9 @@ img{
   text-align: left; 
   margin-left: 160px;
 }
+#amount{
+  color: whitesmoke;
+}
 input 				{
   font-size:18px;
   padding:10px 10px 10px 5px;
